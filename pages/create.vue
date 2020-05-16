@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
@@ -88,7 +89,11 @@ export default {
       ImageryService.addImagery(formData)
         .then((response) => {
           // eslint-disable-next-line no-console
-          console.log(response.data)
+          console.log(response)
+          // eslint-disable-next-line no-console
+          if (response.status === 200) {
+            this.$router.push('/')
+          }
         })
         .catch((err) => {
           // eslint-disable-next-line no-console

@@ -1,0 +1,31 @@
+{
+  "imageries": [
+    {
+      "id": "54325154",
+      "book": "Heart of Darkness",
+      "author": "Joseph Conrad",
+      "chapter": "II",
+      "fragment": "Going up that river was like traveling back to the earliest beginnings of the world, when vegetation rioted on the earth and the big trees were kings. An empty stream, a great silence, an impenetrable forest. The air was warm, thick, heavy, sluggish. There was no joy in the brilliance of sunshine. The long stretches of the waterway ran on, deserted, into the gloom of overshadowed distances. On silvery sand-banks hippos and alligators sunned themselves side by side. The broadening waters flowed through a mob of wooded islands; you lost your way on that river as you would in a desert, and butted all day long against shoals, trying to find the channel, till you thought yourself bewitched and cut off for ever from everything you had known once—somewhere—far away—in another existence perhaps [...].",
+      "url": "http://www.gutenberg.org/files/219/219-h/219-h.htm",
+      "picture": "https://images.unsplash.com/photo-1578924824780-b7c49930e310?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=335&q=80"
+    },
+    {
+      "id": "23418025",
+      "book": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "chapter": "Chapter 15",
+      "fragment": "But the attention of every lady was soon caught by a young man, whom they had never seen before, of most gentlemanlike appearance, walking with another officer on the other side of the way. The officer was the very Mr. Denny concerning whose return from London Lydia came to inquire, and he bowed as they passed. All were struck with the stranger’s air, all wondered who he could be; and Kitty and Lydia, determined if possible to find out, led the way across the street, under pretense of wanting something in an opposite shop, and fortunately had just gained the pavement when the two gentlemen, turning back, had reached the same spot. ",
+      "url": "http://www.gutenberg.org/files/1342/1342-h/1342-h.htm",
+      "picture": "https://images.unsplash.com/photo-1579762593155-42faee39d0b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1101&q=80"
+    },
+    {
+      "id": "23129517",
+      "book": "Little Women",
+      "author": "Louisa May Alcott",
+      "chapter": "CHAPTER THIRTY-ONE - OUR FOREIGN CORRESPONDENT",
+      "fragment": "In my last I told you about our London visit, how kind the Vaughns were, and what pleasant parties they made for us. I enjoyed the trips to Hampton Court and the Kensington Museum more than anything else, for at Hampton I saw Raphael's cartoons, and at the Museum, rooms full of pictures by Turner, Lawrence, Reynolds, Hogarth, and the other great creatures. The day in Richmond Park was charming, for we had a regular English picnic, and I had more splendid oaks and groups of deer than I could copy, also heard a nightingale, and saw larks go up. We 'did' London to our heart's content, thanks to Fred and Frank, and were sorry to go away, for though English people are slow to take you in, when they once make up their minds to do it they cannot be outdone in hospitality, I think.",
+      "url": "http://www.gutenberg.org/files/514/514-h/514-h.htm",
+      "picture": "https://images.unsplash.com/photo-1585157603875-17aacca6182a?ixlib=rb-1.2.1&auto=format&fit=crop&w=361&q=80"
+    }
+  ]
+}

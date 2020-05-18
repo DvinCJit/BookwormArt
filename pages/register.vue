@@ -34,6 +34,16 @@ export default {
       email: '',
       password: ''
     }
+  },
+  methods: {
+    register() {
+      this.$store.dispatch('register', {
+        full_name: this.full_name,
+        nickname: this.nickname,
+        email: this.email,
+        password: this.password
+      })
+    }
   }
 }
 </script>

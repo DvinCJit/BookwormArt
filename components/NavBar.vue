@@ -49,14 +49,19 @@ export default {
           to: '/login'
         },
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           title: 'Imagery List',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-plus-circle',
           title: 'Create New Imagery',
           to: '/create'
+        },
+        {
+          icon: 'mdi-desktop-mac-dashboard',
+          title: 'Dashboard',
+          to: '/dashboard'
         }
       ],
       miniVariant: true,
@@ -68,9 +73,9 @@ export default {
 
 <style lang="sass" scoped>
 #toolbar-title
-    color: $title-color
-    font-family: $font-family-title
-    font-size: $font-size-title
+  color: $title-color
+  font-family: $font-family-title
+  font-size: $font-size-title
 
 #book-icon
   color: $title-color

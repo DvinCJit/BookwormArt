@@ -12,6 +12,9 @@ export const mutations = {
   SET_IMAGERY(state, imagery) {
     state.imagery = imagery
   }
+  // SET_USER_IMAGERIES(state, imageries) {
+  //   state.userImageries = imageries
+  // }
 }
 
 export const actions = {
@@ -27,4 +30,10 @@ export const actions = {
       commit('SET_IMAGERY', response.data)
     })
   }
+  // fetchMyImageries({ commit }, id) {
+  //   return ImageryService.getMyImageries(id).then((myImageries) => {
+  //     console.log('User Imageries: ', myImageries)
+  //     commit('SET_USER_IMAGERIES')
+  //   })
+  // }
 }

@@ -2,7 +2,7 @@ import ImageryService from '@/services/ImageryService.js'
 
 export const state = () => ({
   imageries: [],
-  imagery: {}
+  imagery: null
 })
 
 export const mutations = {
@@ -22,6 +22,8 @@ export const actions = {
   },
   fetchImagery({ commit }, id) {
     return ImageryService.getImagery(id).then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response)
       commit('SET_IMAGERY', response.data)
     })
   }

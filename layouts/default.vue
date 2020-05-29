@@ -27,7 +27,7 @@ export default {
           hid: 'description',
           name: 'description',
           content:
-            'BookwormArt is the only online social community for artists who get inspired through literary imagery and literature in general, making it possible for people to share their art and our literary legacy (from places such as Project Gutenberg which offer free public domain books).'
+            'BookwormArt is the only online social community for artists who get inspired by literary imagery, making it possible for them to share their art and our literary legacy (from places such as Project Gutenberg which offer free public domain books).'
         }
       ]
     }

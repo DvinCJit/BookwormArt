@@ -8,7 +8,11 @@ const imagerySchema = new Schema(
     chapter: { type: String, required: false, maxlength: 20 },
     fragment: { type: String, required: true, minlength: 5, maxlength: 1000 },
     url: { type: String, required: false },
-    image: { type: Object }
+    image: { type: Object },
+    _creator: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
   },
   {
     timestamps: true

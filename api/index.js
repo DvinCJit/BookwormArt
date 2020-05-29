@@ -13,10 +13,10 @@ app.use(express.urlencoded({ extended: true }))
 // Require & Import API routes
 // eslint-disable-next-line no-unused-vars
 const imageriesRouter = require('./routes/imageriesRoutes.js')
-// const usersRouter = require('./routes/usersRoutes.js')
+const usersRouter = require('./routes/usersRoutes.js')
 
 app.use(imageriesRouter)
-// app.use(usersRouter)
+app.use(usersRouter)
 
 // Export the server middleware
 module.exports = {

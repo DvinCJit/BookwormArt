@@ -2,16 +2,15 @@
   <v-layout column align-center>
     <v-flex xs12 sm8 md6>
       <h1>Register</h1>
-      <v-form @submit.prevent="register">
-        <v-text-field id="full_name" v-model="full_name" label="Full Name">
-        </v-text-field>
+      <v-form enctype="multipart/form-data" @submit.prevent="register">
         <v-text-field id="nickname" v-model="nickname" label="Nickname">
         </v-text-field>
-        <v-text-field id="email" v-model="email" label="Email"> </v-text-field>
+        <v-text-field id="email" v-model="email" label="Email"></v-text-field>
         <v-text-field
           id="password"
           v-model="password"
           label="Password"
+          :type="show ? 'text' : 'password'"
         ></v-text-field>
         <v-btn
           id="submit"
@@ -21,6 +20,7 @@
           >Register</v-btn
         >
       </v-form>
+      <p class="mt-4">Already a member? <a href="/register">Login.</a></p>
     </v-flex>
   </v-layout>
 </template>
@@ -29,20 +29,23 @@
 export default {
   data() {
     return {
-      full_name: '',
       nickname: '',
       email: '',
-      password: ''
+      password: '',
+      show: false
     }
   },
   methods: {
     register() {
-      this.$store.dispatch('register', {
-        full_name: this.full_name,
-        nickname: this.nickname,
-        email: this.email,
-        password: this.password
-      })
+      this.$store
+        .dispatch('users/register', {
+          nickname: this.nickname,
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push('/login')
+        })
     }
   }
 }

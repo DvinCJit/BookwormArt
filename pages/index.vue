@@ -1,16 +1,22 @@
 <template>
   <v-app>
     <v-container>
-      <v-layout column justify-center align-center>
-        <v-flex xs12 sm8 md6>
-          <h1>Imagery List</h1>
-          <ImageryCard
+      <v-layout row wrap justify-center>
+        <v-row>
+          <v-col cols="12">
+            <h1 class="text-center">Imagery List</h1>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col
             v-for="(imagery, index) in imageries"
             :key="index"
-            :imagery="imagery"
-            :index="index"
-          />
-        </v-flex>
+            cols="12"
+            md="4"
+          >
+            <ImageryCard :imagery="imagery" :index="index" />
+          </v-col>
+        </v-row>
       </v-layout>
     </v-container>
   </v-app>

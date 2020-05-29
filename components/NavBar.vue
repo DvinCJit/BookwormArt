@@ -2,7 +2,9 @@
   <div>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-icon id="book-icon">mdi-book-open-variant</v-icon>
-      <v-toolbar-title id="toolbar-title" v-text="title" />
+      <nuxt-link id="home-link" to="/">
+        <v-toolbar-title id="toolbar-title" v-text="title" />
+      </nuxt-link>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
@@ -14,7 +16,7 @@
       fixed
       app
     >
-      <v-list>
+      <v-list v-if="!loggedIn">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -30,11 +32,35 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-list v-else-if="loggedIn">
+        <v-list-item
+          v-for="(itemLogin, j) in itemsLogin"
+          :key="j"
+          :to="itemLogin.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ itemLogin.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="itemLogin.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <template v-if="loggedIn">
+        <div class="pa-2">
+          <v-btn color="lime accent-3" class="black--text" block @click="logout"
+            >Logout</v-btn
+          >
+        </div>
+      </template>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -49,6 +75,18 @@ export default {
           to: '/login'
         },
         {
+          icon: 'mdi-account-plus',
+          title: 'Register',
+          to: '/register'
+        },
+        {
+          icon: 'mdi-home',
+          title: 'Imagery List',
+          to: '/'
+        }
+      ],
+      itemsLogin: [
+        {
           icon: 'mdi-home',
           title: 'Imagery List',
           to: '/'
@@ -59,13 +97,21 @@ export default {
           to: '/create'
         },
         {
-          icon: 'mdi-desktop-mac-dashboard',
+          icon: 'mdi-account-circle',
           title: 'Dashboard',
-          to: '/dashboard'
+          to: '/users/:id'
         }
       ],
-      miniVariant: true,
+      miniVariant: false,
       title: 'BookwormArt'
+    }
+  },
+  computed: {
+    ...mapGetters('users', ['loggedIn'])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('users/logout')
     }
   }
 }
@@ -80,4 +126,7 @@ export default {
 #book-icon
   color: $title-color
   padding-right: 0.3em
+
+#home-link
+  text-decoration: none
 </style>

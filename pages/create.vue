@@ -85,11 +85,11 @@ export default {
       formData.append('url', this.url)
       formData.append('image', this.image)
       // eslint-disable-next-line no-console
-      console.log(formData)
+      // console.log(formData)
       ImageryService.addImagery(formData)
         .then((response) => {
           // eslint-disable-next-line no-console
-          console.log(response)
+          // console.log(response)
           // eslint-disable-next-line no-console
           if (response.status === 200) {
             this.$router.push('/')

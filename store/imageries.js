@@ -1,6 +1,7 @@
 import ImageryService from '@/services/ImageryService.js'
 
 export const state = () => ({
+  // userImageries: [],
   imageries: [],
   imagery: null
 })
@@ -12,8 +13,8 @@ export const mutations = {
   SET_IMAGERY(state, imagery) {
     state.imagery = imagery
   }
-  // SET_USER_IMAGERIES(state, imageries) {
-  //   state.userImageries = imageries
+  // SET_USER_IMAGERIES(state, userImageries) {
+  //   state.userImageries = userImageries
   // }
 }
 
@@ -31,9 +32,14 @@ export const actions = {
     })
   }
   // fetchMyImageries({ commit }, id) {
-  //   return ImageryService.getMyImageries(id).then((myImageries) => {
-  //     console.log('User Imageries: ', myImageries)
-  //     commit('SET_USER_IMAGERIES')
+  //   return ImageryService.getMyImageries(id).then((response) => {
+  //     // eslint-disable-next-line no-console
+  //     return (
+  //       ({ myImageries: response.data },
+  //       // eslint-disable-next-line no-console
+  //       console.log('User Imageries: ', response)),
+  //       commit('SET_USER_IMAGERIES', this.myImageries)
+  //     )
   //   })
   // }
 }

@@ -7,7 +7,7 @@
             <h1 class="text-center">Imagery List</h1>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="imageries.length !== 0">
           <v-col
             v-for="(imagery, index) in imageries"
             :key="index"
@@ -18,6 +18,9 @@
           </v-col>
         </v-row>
       </v-layout>
+      <p v-if="imageries.length === 0" class="text-center">
+        No imageries yet.
+      </p>
     </v-container>
   </v-app>
 </template>
@@ -40,8 +43,8 @@ export default {
       })
     }
   },
-  computed: mapState({
-    imageries: (state) => state.imageries.imageries
-  })
+  computed: {
+    ...mapState('imageries', ['imageries'])
+  }
 }
 </script>

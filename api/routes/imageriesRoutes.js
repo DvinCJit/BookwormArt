@@ -11,7 +11,7 @@ router.get('/imageries', imageriesController.list)
 // router.get('/users/imageries/:id', imageriesController.find)
 
 // Get Imagery (substitutes above) not using it atm
-router.get('/users/imageries/:id', imageriesController.getImagery)
+router.get('/users/imageries/:id', imageriesController.findImagery)
 
 // Get User Imageries
 router.get('/users/:id', imageriesController.getUserImageries)
@@ -21,9 +21,9 @@ router.get('/users/:id', imageriesController.getUserImageries)
 router.post('/imageries', parser.single('image'), imageriesController.create)
 
 // Update
-router.put('/imageries/:id', imageriesController.update)
+router.put('/users/imageries/edit/:id', imageriesController.update)
 
 // Delete
-router.delete('/imageries/:id', imageriesController.delete)
+router.post('/imageries/delete', imageriesController.delete)
 
 module.exports = router

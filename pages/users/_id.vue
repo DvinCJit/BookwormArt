@@ -7,9 +7,9 @@
             <h1 class="text-center">{{ user.nickname }}</h1>
           </v-col>
         </v-row>
-        <v-row v-if="imageries.length !== 0">
+        <v-row v-if="userImageries.length !== 0">
           <v-col
-            v-for="(imagery, index) in imageries"
+            v-for="(imagery, index) in userImageries"
             :key="index"
             cols="12"
             md="4"
@@ -18,7 +18,7 @@
           </v-col>
         </v-row>
       </v-layout>
-      <p v-if="imageries.length === 0" class="text-center">
+      <p v-if="userImageries.length === 0" class="text-center">
         No imageries yet.
       </p>
     </v-container>
@@ -39,12 +39,12 @@ export default {
       store.state.users.user._id
     )
     return {
-      imageries: data
+      userImageries: data
     }
   },
   // async fetch({ store, error }) {
   //   try {
-  //     await store.dispatch('users/fetchMyImageries', this.user._id)
+  //     await store.dispatch('imageries/fetchMyImageries', this.user._id)
   //   } catch (e) {
   //     error({
   //       statusCode: 503,

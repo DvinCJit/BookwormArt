@@ -9,13 +9,13 @@ const userSchema = new Schema({
   token: {
     type: String,
     required: true
-  },
-  imageries: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Imagery'
-    }
-  ]
+  }
+  // imageries: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Imagery'
+  //   }
+  // ]
 })
 
 // Hash password before saving user

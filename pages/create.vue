@@ -4,6 +4,7 @@
     <v-flex xs12 sm8 md6>
       <h1>Create New Imagery</h1>
       <v-form
+        v-model="formValidity"
         action=""
         method="post"
         enctype="multipart/form-data"
@@ -12,16 +13,20 @@
         <v-text-field
           id="book"
           v-model="book"
-          label="Book"
+          label="Book*"
           type="text"
           placeholder="Add book title"
+          :rules="bookRules"
+          required
         ></v-text-field>
         <v-text-field
           id="author"
           v-model="author"
-          label="Author"
+          label="Author*"
           type="text"
           placeholder="Add book author"
+          :rules="authorRules"
+          required
         ></v-text-field>
         <v-text-field
           id="chapter"
@@ -33,9 +38,11 @@
         <v-textarea
           id="fragment"
           v-model="fragment"
-          label="Fragment"
+          label="Fragment*"
           type="text"
           placeholder="Add book fragment"
+          :rules="fragmentRules"
+          required
         ></v-textarea>
         <v-text-field
           id="url"
@@ -48,15 +55,20 @@
           id="image"
           v-model="image"
           placeholder="Attach imagery picture"
+          required
         ></v-file-input>
         <v-btn
           id="submit"
           type="submit"
-          color="lime accent-3"
+          color="#069688"
           class="black--text"
+          :disabled="!formValidity"
           >Submit</v-btn
         >
       </v-form>
+      <ul>
+        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+      </ul>
     </v-flex>
   </v-layout>
 </template>
@@ -72,7 +84,36 @@ export default {
       chapter: '',
       fragment: '',
       url: '',
-      image: {}
+      image: {},
+      errors: null,
+      bookRules: [
+        (value) => !!value || 'Book title is required.',
+        (value) =>
+          value.length >= 2 ||
+          'Book title is too short, it must have 2 characters at least.',
+        (value) =>
+          value.length <= 30 ||
+          "Book title is too long, it can't have more than 30 characters."
+      ],
+      authorRules: [
+        (value) => !!value || 'Book author is required.',
+        (value) =>
+          value.length >= 2 ||
+          'Book author is too short, it must have 2 characters at least.',
+        (value) =>
+          value.length <= 30 ||
+          "Book author is too long, it can't have more than 30 characters."
+      ],
+      fragmentRules: [
+        (value) => !!value || 'Book fragment is required.',
+        (value) =>
+          value.length >= 2 ||
+          'Book fragment is too short, it must have 2 characters at least.',
+        (value) =>
+          value.length <= 500 ||
+          "Book fragment is too long, it can't have more than 500 characters."
+      ],
+      formValidity: false
     }
   },
   methods: {
@@ -96,8 +137,7 @@ export default {
           }
         })
         .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log(err.response)
+          this.errors = err.response.data.errors
         })
     }
   }

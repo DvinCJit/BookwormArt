@@ -12,11 +12,24 @@
       <p>{{ imagery.fragment }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-spacer />
-      <v-icon color="primary" nuxt to="" class="mr-4">
+      <v-icon color="#069688" nuxt to="" class="mr-4">
+        mdi-heart
+      </v-icon>
+      <v-icon color="#069688" nuxt to="" class="mr-4">
+        mdi-comment-text-multiple
+      </v-icon>
+
+      <v-icon
+        v-if="loggedIn"
+        color="#069688"
+        nuxt
+        to="'/users/imageries/edit/' + imagery._id"
+        class="mr-4"
+        @click.prevent="goToEdit"
+      >
         mdi-pencil-outline
       </v-icon>
-      <v-icon color="primary" nuxt to="">
+      <v-icon v-if="loggedIn" color="#069688" @click.prevent="sendIdAndDelete">
         mdi-trash-can-outline
       </v-icon>
     </v-card-actions>
@@ -24,11 +37,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import ImageryService from '../services/ImageryService'
+
 export default {
   name: 'ImageryCard',
   props: {
     // eslint-disable-next-line vue/require-default-prop
     imagery: Object
+  },
+  computed: {
+    ...mapGetters('users', ['loggedIn'])
+  },
+  methods: {
+    async sendIdAndDelete() {
+      const id = this.imagery._id
+      const imageId = this.imagery.image.id
+      await ImageryService.sendImageryId({ _id: id, image_id: imageId })
+    },
+    goToEdit() {
+      const id = this.imagery._id
+      this.$router.push('/users/imageries/edit/' + id)
+    }
   }
 }
 </script>

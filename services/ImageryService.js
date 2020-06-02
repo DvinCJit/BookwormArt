@@ -32,5 +32,11 @@ export default {
   },
   addImagery(data) {
     return apiClient.post('/api/imageries', data)
+  },
+  sendImageryId(data) {
+    return apiClient.post('/api/imageries/delete', data)
+  },
+  updateImagery({ id, data }) {
+    return apiClient.put('/api/users/imageries/edit/' + id, data)
   }
 }

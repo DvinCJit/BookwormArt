@@ -6,6 +6,7 @@
         <v-toolbar-title id="toolbar-title" v-text="title" />
       </nuxt-link>
       <v-spacer></v-spacer>
+      <v-btn @click="toggleTheme">Theme</v-btn>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
     <v-navigation-drawer
@@ -32,7 +33,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-list v-else-if="loggedIn">
+      <v-list v-if="loggedIn">
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list v-else-if="loggedIn && this.$store.state.users.user._id">
         <v-list-item
           v-for="(itemLogin, j) in itemsLogin"
           :key="j"
@@ -48,9 +65,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <template v-if="loggedIn">
+      <template v-if="loggedIn && this.$store.state.users.user._id">
         <div class="pa-2">
-          <v-btn color="lime accent-3" class="black--text" block @click="logout"
+          <v-btn color="#069688" class="black--text" block @click="logout"
             >Logout</v-btn
           >
         </div>
@@ -112,6 +129,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('users/logout')
+    },
+    toggleTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
   }
 }

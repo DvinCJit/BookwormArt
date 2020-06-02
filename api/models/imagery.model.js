@@ -10,8 +10,8 @@ const imagerySchema = new Schema(
     url: { type: String, required: false },
     image: { type: Object },
     _creator: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
+      type: Schema.Types.ObjectId
+      // ref: 'User'
     }
   },
   {

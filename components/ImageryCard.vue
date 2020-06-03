@@ -53,7 +53,7 @@ export default {
     async sendIdAndDelete() {
       const id = this.imagery._id
       const imageId = this.imagery.image.id
-      await ImageryService.sendImageryId({ _id: id, image_id: imageId })
+      await ImageryService.deleteImagery({ _id: id, image_id: imageId })
     },
     goToEdit() {
       const id = this.imagery._id

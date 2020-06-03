@@ -15,6 +15,9 @@ export default {
       JSON.parse(localStorage.getItem('user')).token
     }`)
   },
+  getImageries() {
+    return apiClient.get('/api/homepage')
+  },
   addUser(credentials) {
     return apiClient.post('/api/register', credentials)
   },
@@ -24,19 +27,16 @@ export default {
   getMyImageries(id) {
     return apiClient.get('/api/users/' + id)
   },
-  getImageries() {
-    return apiClient.get('/api/imageries')
-  },
   getImagery(id) {
     return apiClient.get('/api/users/imageries/' + id)
   },
   addImagery(data) {
-    return apiClient.post('/api/imageries', data)
-  },
-  sendImageryId(data) {
-    return apiClient.post('/api/imageries/delete', data)
+    return apiClient.post('/api/users/imageries/create', data)
   },
   updateImagery({ id, data }) {
     return apiClient.put('/api/users/imageries/edit/' + id, data)
+  },
+  deleteImagery(data) {
+    return apiClient.post('/api/users/imageries/delete', data)
   }
 }

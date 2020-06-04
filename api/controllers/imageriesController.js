@@ -82,6 +82,7 @@ module.exports.create = [
       fragment,
       url,
       image,
+      likes_count: 0,
       _creator: id
     })
 

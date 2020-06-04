@@ -18,9 +18,15 @@
           </v-col>
         </v-row>
       </v-layout>
-      <p v-if="userImageries.length === 0" class="text-center">
-        No imageries yet.
-      </p>
+      <div v-if="userImageries.length === 0">
+        <p class="text-center">
+          No imageries yet.
+        </p>
+        <p class="text-center">
+          Found evocative imagery in a book you love?
+          <a href="/users/imageries/create">Create Imagery.</a>
+        </p>
+      </div>
     </v-container>
   </v-app>
 </template>

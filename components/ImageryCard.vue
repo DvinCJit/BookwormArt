@@ -10,6 +10,8 @@
     <v-card-text>
       <hr class="my-3" />
       <p>{{ imagery.fragment }}</p>
+      <p v-if="imagery.likes_count === 1">{{ imagery.likes_count }} like</p>
+      <p v-else>{{ imagery.likes_count }} likes</p>
     </v-card-text>
     <v-card-actions>
       <v-icon color="#069688" nuxt to="" class="mr-4">

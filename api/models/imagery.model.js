@@ -9,6 +9,7 @@ const imagerySchema = new Schema(
     fragment: { type: String, required: true, minlength: 5, maxlength: 1000 },
     url: { type: String, required: false },
     image: { type: Object },
+    likes_count: { type: Number },
     _creator: {
       type: Schema.Types.ObjectId
       // ref: 'User'

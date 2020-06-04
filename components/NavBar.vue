@@ -17,6 +17,38 @@
       fixed
       app
     >
+      <v-list v-if="loggedIn && this.$store.state.users.user._id">
+        <v-list-item
+          v-for="(itemLogin, j) in itemsLogin"
+          :key="j"
+          :to="itemLogin.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ itemLogin.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="itemLogin.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list v-else-if="loggedIn && !!this.$store.state.users.user._id">
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
       <v-list v-if="!loggedIn">
         <v-list-item
           v-for="(item, i) in items"
@@ -30,38 +62,6 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <v-list v-if="loggedIn">
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <v-list v-else-if="loggedIn && this.$store.state.users.user._id">
-        <v-list-item
-          v-for="(itemLogin, j) in itemsLogin"
-          :key="j"
-          :to="itemLogin.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ itemLogin.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="itemLogin.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -111,7 +111,7 @@ export default {
         {
           icon: 'mdi-plus-circle',
           title: 'Create New Imagery',
-          to: '/create'
+          to: '/users/imageries/create'
         },
         {
           icon: 'mdi-account-circle',

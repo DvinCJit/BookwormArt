@@ -116,6 +116,13 @@ export default {
       formValidity: false
     }
   },
+  // created() {
+  //   const userString = localStorage.getItem('user')
+  //   if (userString) {
+  //     const userData = JSON.parse(userString)
+  //     this.$store.commit('SET_USER_DATA', userData)
+  //   }
+  // },
   methods: {
     submitImagery() {
       const formData = new FormData()
@@ -140,6 +147,7 @@ export default {
           this.errors = err.response.data.errors
         })
     }
-  }
+  },
+  middleware: ['auth']
 }
 </script>

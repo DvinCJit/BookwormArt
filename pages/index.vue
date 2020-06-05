@@ -46,5 +46,14 @@ export default {
   computed: {
     ...mapState('imageries', ['imageries'])
   }
+  // created() {
+  //   if (process.browser) {
+  //     const userString = localStorage.getItem('user')
+  //     if (userString) {
+  //       const userData = JSON.parse(userString)
+  //       this.$store.commit('SET_USER_DATA', userData)
+  //     }
+  //   }
+  // }
 }
 </script>

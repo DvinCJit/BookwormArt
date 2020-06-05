@@ -38,5 +38,8 @@ export default {
   },
   deleteImagery(data) {
     return apiClient.post('/api/users/imageries/delete', data)
+  },
+  updateLikes({ data }) {
+    return apiClient.post('api/users/imageries/edit', { data })
   }
 }

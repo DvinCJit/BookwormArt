@@ -10,22 +10,29 @@
     <v-card-text>
       <hr class="my-3" />
       <p>{{ imagery.fragment }}</p>
-      <p v-if="imagery.likes_count === 1">{{ imagery.likes_count }} like</p>
-      <p v-else>{{ imagery.likes_count }} likes</p>
+      <div>
+        <span id="likes" style="float: left" class="mr-1">{{
+          imagery.likes_count
+        }}</span>
+        <p>got inspired</p>
+      </div>
     </v-card-text>
     <v-card-actions>
-      <v-icon color="#069688" nuxt to="" class="mr-4">
-        mdi-heart
+      <v-icon
+        color="#069688"
+        class="mr-4"
+        @click.prevent="toggleLike"
+        @mouseup="updateCount"
+      >
+        {{ heartOutline }}
       </v-icon>
-      <v-icon color="#069688" nuxt to="" class="mr-4">
+      <v-icon color="#069688" class="mr-4">
         mdi-comment-text-multiple
       </v-icon>
 
       <v-icon
         v-if="loggedIn"
         color="#069688"
-        nuxt
-        to="'/users/imageries/edit/' + imagery._id"
         class="mr-4"
         @click.prevent="goToEdit"
       >
@@ -48,6 +55,11 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     imagery: Object
   },
+  data() {
+    return {
+      heartOutline: 'mdi-heart-outline'
+    }
+  },
   computed: {
     ...mapGetters('users', ['loggedIn'])
   },
@@ -60,6 +72,36 @@ export default {
     goToEdit() {
       const id = this.imagery._id
       this.$router.push('/users/imageries/edit/' + id)
+    },
+    toggleLike(e) {
+      if (this.heartOutline === 'mdi-heart-outline') {
+        document.querySelector('#likes').textContent++
+        this.heartOutline = 'mdi-heart'
+      } else {
+        document.querySelector('#likes').textContent--
+        this.heartOutline = 'mdi-heart-outline'
+      }
+    },
+    updateCount() {
+      // const id = this.imagery._id
+      // const count = document.querySelector('#likes').textContent
+      const data = {
+        _user: this.$store.state.users.user._id,
+        _imagery: this.imagery._id
+      }
+
+      // // eslint-disable-next-line no-console
+      // console.log('data: ', data)
+      // eslint-disable-next-line no-console
+      console.log('db: ', this.imagery.likes_count)
+
+      ImageryService.updateLikes({ data })
+        .then((response) => {
+          return response
+        })
+        .catch((err) => {
+          return err
+        })
     }
   }
 }

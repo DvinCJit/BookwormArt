@@ -126,6 +126,13 @@ export default {
   mounted() {
     this.fillForm()
   },
+  // created() {
+  //   const userString = localStorage.getItem('user')
+  //   if (userString) {
+  //     const userData = JSON.parse(userString)
+  //     this.$store.commit('SET_USER_DATA', userData)
+  //   }
+  // },
   methods: {
     fillForm() {
       this.book = this.imagery.book
@@ -144,7 +151,7 @@ export default {
         url: this.url
       }
       // eslint-disable-next-line no-console
-      console.log('Client data', data)
+      // console.log('Client data', data)
       ImageryService.updateImagery({ id, data })
         .then((response) => {
           // eslint-disable-next-line no-console
@@ -158,6 +165,7 @@ export default {
           this.errors = err.response.data.errors
         })
     }
-  }
+  },
+  middleware: ['auth']
 }
 </script>

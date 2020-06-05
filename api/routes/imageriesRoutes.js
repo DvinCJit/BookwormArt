@@ -27,6 +27,9 @@ router.post(
 // Update
 router.put('/users/imageries/edit/:id', imageriesController.update)
 
+// Update Count
+router.post('/users/imageries/edit', imageriesController.updateCount)
+
 // Delete
 router.post('/users/imageries/delete', imageriesController.delete)
 

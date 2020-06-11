@@ -10,35 +10,29 @@
     <v-card-text>
       <hr class="my-3" />
       <p>{{ imagery.fragment }}</p>
-      <div>
-        <span id="likes" style="float: left" class="mr-1">{{
-          imagery.likes_count
+      <div v-if="loggedIn">
+        <span :likes="likes" style="float: left" class="mr-1">{{
+          likes
         }}</span>
-        <p>got inspired</p>
+        <p v-if="likes === 1">like</p>
+        <p v-else>likes</p>
       </div>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="loggedIn">
       <v-icon
         color="#069688"
         class="mr-4"
-        @click.prevent="toggleLike"
-        @mouseup="updateCount"
+        :disabled="disabled"
+        @mouseup.prevent="updatingLikes"
+        @click.prevent="disable"
       >
         {{ heartOutline }}
       </v-icon>
-      <v-icon color="#069688" class="mr-4">
-        mdi-comment-text-multiple
-      </v-icon>
 
-      <v-icon
-        v-if="loggedIn"
-        color="#069688"
-        class="mr-4"
-        @click.prevent="goToEdit"
-      >
+      <v-icon v-if="this.$route.params.id" color="#069688" class="mr-4" @click.prevent="goToEdit">
         mdi-pencil-outline
       </v-icon>
-      <v-icon v-if="loggedIn" color="#069688" @click.prevent="sendIdAndDelete">
+      <v-icon v-if="this.$route.params.id" color="#069688" @click.prevent="sendIdAndDelete">
         mdi-trash-can-outline
       </v-icon>
     </v-card-actions>
@@ -57,13 +51,70 @@ export default {
   },
   data() {
     return {
-      heartOutline: 'mdi-heart-outline'
+      heartOutline: 'mdi-heart-outline',
+      disabled: false,
+      likes: ''
     }
   },
   computed: {
-    ...mapGetters('users', ['loggedIn'])
+    ...mapGetters('users', ['loggedIn']),
+    ...mapGetters('users', ['userId'])
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.getLikes()
+      this.countLikes()
+    }
+  },
+  updated() {
+    if (this.loggedIn) {
+      this.getLikes()
+      this.countLikes()
+    }
   },
   methods: {
+    getLikes() {
+      const data = {
+        _user: this.userId,
+        _imagery: this.imagery._id
+      }
+      // eslint-disable-next-line no-console
+      console.log('before true: ')
+      ImageryService.getUserLikes({ data })
+        .then((response) => {
+          // eslint-disable-next-line no-console
+          console.log('true: ', response)
+          if (response.data === true) {
+            // eslint-disable-next-line no-console
+            console.log('heart!')
+            this.heartOutline = 'mdi-heart'
+            this.$emit('update:heart', this.heartOutline)
+          } else {
+            this.heartOutline = 'mdi-heart-outline'
+          }
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log('err: ', err)
+          return err
+        })
+    },
+    countLikes() {
+      const data = {
+        _imagery: this.imagery._id
+      }
+      ImageryService.countImageryLikes({ data })
+        .then((res) => {
+          // eslint-disable-next-line no-console
+          console.log('count: ', res.data)
+          this.likes = res.data
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log('err: ', err)
+          return err
+        })
+    },
     async sendIdAndDelete() {
       const id = this.imagery._id
       const imageId = this.imagery.image.id
@@ -73,16 +124,31 @@ export default {
       const id = this.imagery._id
       this.$router.push('/users/imageries/edit/' + id)
     },
-    toggleLike(e) {
-      if (this.heartOutline === 'mdi-heart-outline') {
-        document.querySelector('#likes').textContent++
-        this.heartOutline = 'mdi-heart'
-      } else {
-        document.querySelector('#likes').textContent--
-        this.heartOutline = 'mdi-heart-outline'
-      }
+    // toggleLike(e) {
+    //   if (this.heartOutline === 'mdi-heart-outline') {
+    //     document.querySelector('#likes').textContent++
+    //     if (document.querySelector('#likes').textContent === '1') {
+    //       document.querySelector('#text').textContent = 'like'
+    //     } else {
+    //       document.querySelector('#text').textContent = 'likes'
+    //     }
+
+    //     this.heartOutline = 'mdi-heart'
+    //   } else {
+    //     document.querySelector('#likes').textContent--
+    //     if (document.querySelector('#likes').textContent === '1') {
+    //       document.querySelector('#text').textContent = 'like'
+    //     } else {
+    //       document.querySelector('#text').textContent = 'likes'
+    //     }
+    //     this.heartOutline = 'mdi-heart-outline'
+    //   }
+    // },
+    disable() {
+      this.disabled = true
+      setTimeout(() => (this.disabled = false), 4000)
     },
-    updateCount() {
+    updatingLikes() {
       // const id = this.imagery._id
       // const count = document.querySelector('#likes').textContent
       const data = {
@@ -97,7 +163,19 @@ export default {
 
       ImageryService.updateLikes({ data })
         .then((response) => {
-          return response
+          // eslint-disable-next-line no-console
+          console.log(response)
+          if (
+            response.data.likes_count >
+            parseInt(document.querySelector('#likes').textContent)
+          ) {
+            document.querySelector('#likes').textContent = 'Updated'
+            this.heartOutline = 'mdi-heart'
+            setTimeout()
+          } else {
+            document.querySelector('#likes').textContent = 'Updated'
+            this.heartOutline = 'mdi-heart-outline'
+          }
         })
         .catch((err) => {
           return err

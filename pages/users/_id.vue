@@ -3,7 +3,7 @@
     <v-container>
       <v-layout row wrap justify-center align-center>
         <v-row>
-          <v-col cols="12" center>
+          <v-col v-if="this.$store.state.users.user" cols="12" center>
             <h1 class="text-center">{{ user.nickname }}</h1>
           </v-col>
         </v-row>
@@ -24,7 +24,7 @@
         </p>
         <p class="text-center">
           Found evocative imagery in a book you love?
-          <a href="/users/imageries/create">Create Imagery.</a>
+          <nuxt-link to="/users/imageries/create">Create Imagery.</nuxt-link>
         </p>
       </div>
     </v-container>
@@ -48,31 +48,9 @@ export default {
       userImageries: data
     }
   },
-  // async fetch({ store, error }) {
-  //   try {
-  //     await store.dispatch('imageries/fetchMyImageries', this.user._id)
-  //   } catch (e) {
-  //     error({
-  //       statusCode: 503,
-  //       message: 'Unable to fetch imagery list at this time. Please try again.'
-  //     })
-  //   }
-  // },
-  data() {
-    return {
-      id: this.$route.params.id
-    }
-  },
   computed: {
     ...mapState('users', ['user'])
   },
   middleware: ['auth', 'setId']
-  // created() {
-  //   const userString = localStorage.getItem('user')
-  //   if (userString) {
-  //     const userData = JSON.parse(userString)
-  //     this.$store.commit('SET_USER_DATA', userData)
-  //   }
-  // }
 }
 </script>

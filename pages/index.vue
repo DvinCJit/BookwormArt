@@ -14,7 +14,11 @@
             cols="12"
             md="4"
           >
-            <ImageryCard :imagery="imagery" :index="index" />
+            <ImageryCard
+              :heart.sync="heart"
+              :imagery="imagery"
+              :index="index"
+            />
           </v-col>
         </v-row>
       </v-layout>
@@ -43,17 +47,13 @@ export default {
       })
     }
   },
+  data() {
+    return {
+      heart: 'mdi-heart-outline'
+    }
+  },
   computed: {
     ...mapState('imageries', ['imageries'])
   }
-  // created() {
-  //   if (process.browser) {
-  //     const userString = localStorage.getItem('user')
-  //     if (userString) {
-  //       const userData = JSON.parse(userString)
-  //       this.$store.commit('SET_USER_DATA', userData)
-  //     }
-  //   }
-  // }
 }
 </script>

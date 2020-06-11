@@ -5,11 +5,10 @@ const imagerySchema = new Schema(
   {
     book: { type: String, required: true, minlength: 3, maxlength: 100 },
     author: { type: String, required: true },
-    chapter: { type: String, required: false, maxlength: 20 },
+    chapter: { type: String, required: false, maxlength: 50 },
     fragment: { type: String, required: true, minlength: 5, maxlength: 1000 },
     url: { type: String, required: false },
     image: { type: Object },
-    likes_count: { type: Number },
     _creator: {
       type: Schema.Types.ObjectId
       // ref: 'User'

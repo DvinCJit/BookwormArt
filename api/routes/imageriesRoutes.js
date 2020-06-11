@@ -16,6 +16,9 @@ router.get('/users/imageries/:id', imageriesController.findImagery)
 // Get User Imageries
 router.get('/users/:id', imageriesController.getUserImageries)
 
+// Get User Likes
+router.post('/homepage', imageriesController.findUserLikes)
+
 // Create
 // Add cloudinary parser as middleware
 router.post(
@@ -27,8 +30,11 @@ router.post(
 // Update
 router.put('/users/imageries/edit/:id', imageriesController.update)
 
-// Update Count
-router.post('/users/imageries/edit', imageriesController.updateCount)
+// Update Likes
+router.post('/users/imageries/edit', imageriesController.updateLikes)
+
+// Count Likes
+router.post('/users/imageries/count', imageriesController.updateCount)
 
 // Delete
 router.post('/users/imageries/delete', imageriesController.delete)

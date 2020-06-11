@@ -36,6 +36,9 @@ module.exports.findImagery = async (req, res) => {
 
 // Get User Imageries
 module.exports.getUserImageries = async (req, res) => {
+  // const token = req.headers.authorization.replace('Bearer ', '')
+  // const decoded = jwt.verify(token, secret)
+  // const id = decoded.user._id
   const { id } = req.params
   const query = {}
   query._creator = id
@@ -46,7 +49,7 @@ module.exports.getUserImageries = async (req, res) => {
       // }
       res.json(imageries)
     })
-    .catch((err) => res.status(400).json('Error: ' + err))
+    .catch((err) => res.status(401).json('Error: ' + err))
 }
 
 // Create
@@ -143,98 +146,133 @@ module.exports.delete = (req, res) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
+module.exports.updateLikes = async (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log(req.body)
+  const _user = req.body.data._user
+  const _imagery = req.body.data._imagery
+  const userQuery = {}
+  userQuery._user = _user
+  const imageryQuery = {}
+  imageryQuery._imagery = _imagery
+  // eslint-disable-next-line no-console
+  console.log('body: ', typeof req.body.data._user)
+  //  - returns []{ imageryQuery, _users: { $in: [_user] } }
+  await Likes.exists({ $and: [userQuery, imageryQuery] })
+    .then((like) => {
+      // eslint-disable-next-line no-console
+      // console.log(imagery.likes_count)
+      if (!like) {
+        // eslint-disable-next-line no-console
+        console.log('No like found...')
+        const newLike = new Likes({
+          _imagery,
+          _user
+        })
+
+        newLike
+          .save()
+          .then(() => res.json('Like added!'))
+          .catch((err) => res.status(400).json('Error ' + err))
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('like', like)
+        Likes.findOneAndDelete({ $and: [userQuery, imageryQuery] })
+          .then(() => res.json('Like deleted!'))
+          .catch((err) => res.status(400).json('Error ' + err))
+      }
+    })
+    .catch((err) => res.status(400).json('Error ' + err))
+}
+
 // module.exports.updateCount = async (req, res) => {
 //   // eslint-disable-next-line no-console
 //   console.log(req.body)
 //   const _user = req.body.data._user
 //   const _imagery = req.body.data._imagery
 //   const userQuery = {}
-//   userQuery._users = [_user]
+//   userQuery._user = _user
 //   const imageryQuery = {}
 //   imageryQuery._imagery = _imagery
-//   // eslint-disable-next-line no-console
-//   console.log('body: ', typeof req.body.data._user)
-//   //  - returns []{ imageryQuery, _users: { $in: [_user] } }
-//   await Likes.exists({ $and: [userQuery, imageryQuery] })
-//     .then((like) => {
-//       // eslint-disable-next-line no-console
-//       // console.log(imagery.likes_count)
-//       if (!like) {
-//         // eslint-disable-next-line no-console
-//         console.log('No like found...')
-//         const newLike = new Likes({
-//           _imagery,
-//           _users: [_user]
-//         })
 
-//         newLike
-//           .save()
-//           .then(() => {
-//             Imagery.findByIdAndUpdate(
-//               _imagery,
-//               { $inc: { likes_count: 1 } },
-//               { new: true }
-//             ).then((imagery) => res.json(imagery))
-//             //     .catch((err) => res.status(400).json('Error: ' + err))
-//           })
-//           .catch((err) => res.status(400).json('Error ' + err))
-//       } else {
-//         // eslint-disable-next-line no-console
-//         console.log('like', like)
-//         Likes.findOneAndDelete(userQuery)
-//           .then(() => res.json('User like deleted!'))
-//           .catch((err) => res.status(400).json('Error: ' + err))
-//       }
+//   await Likes.findOneAndUpdate(imageryQuery, imageryQuery, {
+//     upsert: true,
+//     new: true
+//   })
+//     .then((like) => {
+//       Likes.exists(userQuery).then((user) => {
+//         if (!user) {
+//           // eslint-disable-next-line no-console
+//           console.log('No user...', like)
+//           Likes.findOneAndUpdate(imageryQuery, userQuery, { new: true })
+//             .then(() => {
+//               Imagery.findByIdAndUpdate(
+//                 _imagery,
+//                 { $inc: { likes_count: 1 } },
+//                 { new: true }
+//               ).then((imagery) => res.json(imagery))
+//             })
+//             .catch((err) => res.status(400).json('Error ' + err))
+//         } else {
+//           // eslint-disable-next-line no-console
+//           console.log('Like: ', like)
+//           Likes.findOneAndUpdate(
+//             imageryQuery,
+//             { $pull: { _users: { $in: [_user] } } },
+//             { new: true }
+//           )
+//             .then(() => {
+//               Imagery.findByIdAndUpdate(
+//                 _imagery,
+//                 { $inc: { likes_count: -1 } },
+//                 { new: true }
+//               ).then((imagery) => res.json(imagery))
+//             })
+//             .catch((err) => res.status(400).json('Error ' + err))
+//         }
+//       })
 //     })
 //     .catch((err) => res.status(400).json('Error ' + err))
 // }
 
-module.exports.updateCount = async (req, res) => {
+module.exports.findUserLikes = (req, res) => {
   // eslint-disable-next-line no-console
-  console.log(req.body)
-  const _user = req.body.data._user
-  const _imagery = req.body.data._imagery
+  console.log('likes')
+  // eslint-disable-next-line no-console
+  console.log('data :', req.body)
+  const _user = req.body._user
+  const _imagery = req.body._imagery
   const userQuery = {}
-  userQuery._users = [{ _id: _user }]
+  userQuery._user = _user
   const imageryQuery = {}
   imageryQuery._imagery = _imagery
 
-  await Likes.findOneAndUpdate(imageryQuery, imageryQuery, {
-    upsert: true,
-    new: true
+  Likes.exists({ $and: [userQuery, imageryQuery] }).then((userLikes) => {
+    if (userLikes) {
+      // eslint-disable-next-line no-console
+      console.log('likes: ', userLikes)
+      res.json(userLikes)
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('no likes: ', userLikes)
+      res.json(userLikes)
+    }
   })
-    .then((like) => {
-      Likes.exists(userQuery).then((user) => {
-        if (!user) {
-          // eslint-disable-next-line no-console
-          console.log('No user...', like)
-          Likes.findOneAndUpdate(imageryQuery, userQuery, { new: true })
-            .then(() => {
-              Imagery.findByIdAndUpdate(
-                _imagery,
-                { $inc: { likes_count: 1 } },
-                { new: true }
-              ).then((imagery) => res.json(imagery))
-            })
-            .catch((err) => res.status(400).json('Error ' + err))
-        } else {
-          // eslint-disable-next-line no-console
-          console.log('User: ', like)
-          Likes.findOneAndUpdate(
-            imageryQuery,
-            { $pull: { _users: { $in: [_user] } } },
-            { new: true }
-          )
-            .then(() => {
-              Imagery.findByIdAndUpdate(
-                _imagery,
-                { $inc: { likes_count: -1 } },
-                { new: true }
-              ).then((imagery) => res.json(imagery))
-            })
-            .catch((err) => res.status(400).json('Error ' + err))
-        }
-      })
-    })
-    .catch((err) => res.status(400).json('Error ' + err))
+}
+
+module.exports.updateCount = (req, res) => {
+  const _imagery = req.body._imagery
+  const imageryQuery = {}
+  imageryQuery._imagery = _imagery
+
+  Likes.countDocuments(imageryQuery, (err, count) => {
+    if (err) {
+      return err
+      // res.status(400).json('Error ' + err)
+    }
+    // eslint-disable-next-line no-console
+    console.log('count: ', count)
+    // res.json(count)
+    return res.json(count)
+  })
 }

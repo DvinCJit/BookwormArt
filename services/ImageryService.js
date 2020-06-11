@@ -10,10 +10,34 @@ const apiClient = axios.create({
 })
 
 export default {
+  interceptError() {
+    return apiClient.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        // eslint-disable-next-line no-console
+        console.log('axios error: ', error)
+        if (error.response.status === 401) {
+          // eslint-disable-next-line no-console
+          console.log('axios error: ', error)
+          // this.$store.dispatch('users/logout')
+          localStorage.clear()
+          location.reload()
+        }
+        return Promise.reject(error)
+      }
+    )
+  },
   getToken() {
     return (apiClient.defaults.headers.common.Authorization = `Bearer ${
       JSON.parse(localStorage.getItem('user')).token
     }`)
+  },
+  persistToken() {
+    if (JSON.parse(localStorage.getItem('user')).users.user !== null) {
+      return (apiClient.defaults.headers.common.Authorization = `Bearer ${
+        JSON.parse(localStorage.getItem('user')).users.user.token
+      }`)
+    }
   },
   getImageries() {
     return apiClient.get('/api/homepage')
@@ -41,5 +65,11 @@ export default {
   },
   updateLikes({ data }) {
     return apiClient.post('api/users/imageries/edit', { data })
+  },
+  getUserLikes({ data }) {
+    return apiClient.post('api/homepage', data)
+  },
+  countImageryLikes({ data }) {
+    return apiClient.post('api/users/imageries/count', data)
   }
 }

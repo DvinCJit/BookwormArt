@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// import axios from 'axios'
 import ImageryService from '@/services/ImageryService.js'
 
 export const state = () => ({
@@ -14,9 +12,10 @@ export const mutations = {
     // axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`
     ImageryService.getToken()
   },
-  CLEAR_USER_DATA() {
-    localStorage.removeItem('user')
+  CLEAR_USER_DATA(state) {
     location.reload()
+    state.user = null
+    localStorage.clear()
   }
 }
 
@@ -41,5 +40,8 @@ export const actions = {
 export const getters = {
   loggedIn(state) {
     return !!state.user
+  },
+  userId(state) {
+    return state.user._id
   }
 }

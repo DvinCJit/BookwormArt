@@ -33,6 +33,7 @@
           v-model="chapter"
           label="Chapter"
           type="text"
+          :rules="chapterRules"
           placeholder="Add book chapter"
         ></v-text-field>
         <v-textarea
@@ -103,6 +104,15 @@ export default {
         (value) =>
           value.length <= 30 ||
           "Book author is too long, it can't have more than 30 characters."
+      ],
+      chapterRules: [
+        (value) => !!value || 'Book chapter is required.',
+        (value) =>
+          value.length >= 2 ||
+          'Book chapter is too short, it must have 2 characters at least.',
+        (value) =>
+          value.length <= 50 ||
+          "Book chapter is too long, it can't have more than 50 characters."
       ],
       fragmentRules: [
         (value) => !!value || 'Book fragment is required.',

@@ -75,7 +75,7 @@ module.exports.login = [
       }
 
       if (!user) {
-        return res.status(500).json('Invalid login. Please try again.')
+        return res.status(401).json('Invalid login. Please try again.')
       }
 
       const token = jwt.sign({ user }, secret)
@@ -94,7 +94,7 @@ module.exports.login = [
         }
 
         if (!isPasswordMatch) {
-          return res.status(500).json('Invalid email or password.')
+          return res.status(401).json('Invalid email or password.')
         }
       })
     })

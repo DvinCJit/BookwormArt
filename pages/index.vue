@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container>
-      <v-layout row wrap justify-center>
+      <v-layout column justify-center>
         <v-row>
           <v-col cols="12">
             <h1 class="text-center">Imagery List</h1>
@@ -12,7 +12,7 @@
             v-for="(imagery, index) in imageries"
             :key="index"
             cols="12"
-            md="4"
+            md="6"
           >
             <ImageryCard
               :heart.sync="heart"

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container>
-      <v-layout row wrap justify-center align-center>
+      <v-layout column justify-center>
         <v-row>
           <v-col v-if="this.$store.state.users.user" cols="12" center>
             <h1 class="text-center">{{ user.nickname }}</h1>
@@ -12,7 +12,7 @@
             v-for="(imagery, index) in userImageries"
             :key="index"
             cols="12"
-            md="4"
+            md="6"
           >
             <ImageryCard :imagery="imagery" :index="index" />
           </v-col>

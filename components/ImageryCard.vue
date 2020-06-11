@@ -6,7 +6,7 @@
       {{ imagery.book }} by {{ imagery.author }}
     </v-card-title>
     <v-card-subtitle>{{ imagery.chapter }}</v-card-subtitle>
-    <a href="imagery.image.url"><img :src="imagery.image.url" width="100%" /></a>
+    <a :href="imagery.image.url"><img :src="imagery.image.url" width="100%" /></a>
     <v-card-text>
       <hr class="my-3" />
       <p>{{ imagery.fragment }}</p>

@@ -78,6 +78,7 @@ module.exports.create = [
     const token = req.headers.authorization.replace('Bearer ', '')
     const decoded = jwt.verify(token, secret)
     const id = decoded.user._id
+    const name = decoded.user.nickname
 
     const newImagery = new Imagery({
       book,
@@ -87,7 +88,8 @@ module.exports.create = [
       url,
       image,
       likes_count: 0,
-      _creator: id
+      _creator: id,
+      _nickname: name
     })
 
     newImagery
@@ -131,18 +133,34 @@ module.exports.update = async (req, res) => {
     .catch((err) => res.status(400).json('Error ' + err))
 }
 
-module.exports.delete = (req, res) => {
-  const id = req.body._id
+module.exports.delete = async (req, res) => {
+  const _imagery = req.body._id
   const imageId = req.body.image_id
+  const _user = req.body._user
+  const userQuery = {}
+  userQuery._user = _user
+  const imageryQuery = {}
+  imageryQuery._imagery = _imagery
   // eslint-disable-next-line no-console
   console.log(imageId)
-  cloudinary.v2.uploader.destroy(imageId, (error, result) => {
-    if (error) return error
-    res.json(result)
-  })
+  // cloudinary.v2.uploader.destroy(imageId, (error, result) => {
+  //   if (error) return error
+  //   return res.json(result)
+  // })
 
-  Imagery.findByIdAndDelete(id)
-    .then(() => res.json('Imagery deleted.'))
+  // await Imagery.findByIdAndDelete(id, (err, docs) => {
+  //   if (err) return err
+  //   return res.json('Imagery deleted!')
+  // })
+  await Imagery.findByIdAndDelete(_imagery)
+    .then(() => {
+      Likes.findOneAndDelete({ $and: [userQuery, imageryQuery] }).then(() => {
+        cloudinary.v2.uploader.destroy(imageId, (error, result) => {
+          if (error) return error
+          return res.json(result)
+        })
+      })
+    })
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 

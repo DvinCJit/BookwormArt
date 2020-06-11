@@ -60,7 +60,7 @@ export default {
   updateImagery({ id, data }) {
     return apiClient.put('/api/users/imageries/edit/' + id, data)
   },
-  deleteImagery(data) {
+  deleteImagery({ data }) {
     return apiClient.post('/api/users/imageries/delete', data)
   },
   updateLikes({ data }) {

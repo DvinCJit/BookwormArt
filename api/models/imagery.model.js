@@ -9,10 +9,8 @@ const imagerySchema = new Schema(
     fragment: { type: String, required: true, minlength: 5, maxlength: 1000 },
     url: { type: String, required: false },
     image: { type: Object },
-    _creator: {
-      type: Schema.Types.ObjectId
-      // ref: 'User'
-    }
+    _creator: { type: Schema.Types.ObjectId },
+    _nickname: { type: String }
   },
   {
     timestamps: true

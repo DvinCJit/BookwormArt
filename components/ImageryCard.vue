@@ -1,12 +1,12 @@
 <template>
   <v-card>
     <!-- <nuxt-link :to="'/users/imageries/' + imagery._id"></nuxt-link> -->
+    <v-card-subtitle>Created by {{ imagery._nickname }}</v-card-subtitle>
     <v-card-title class="headline">
       {{ imagery.book }} by {{ imagery.author }}
     </v-card-title>
-
     <v-card-subtitle>{{ imagery.chapter }}</v-card-subtitle>
-    <img :src="imagery.image.url" width="100%" />
+    <a href="imagery.image.url"><img :src="imagery.image.url" width="100%" /></a>
     <v-card-text>
       <hr class="my-3" />
       <p>{{ imagery.fragment }}</p>
@@ -116,9 +116,20 @@ export default {
         })
     },
     async sendIdAndDelete() {
-      const id = this.imagery._id
-      const imageId = this.imagery.image.id
-      await ImageryService.deleteImagery({ _id: id, image_id: imageId })
+      // const id = this.imagery._id
+      // const imageId = this.imagery.image.id
+      const data = {
+        _user: this.$store.state.users.user._id,
+        image_id: this.imagery.image.id,
+        _id: this.imagery._id
+      }
+      await ImageryService.deleteImagery({ data })
+        .then(() => {
+          location.reload()
+        })
+        .catch((err) => {
+          return err
+        })
     },
     goToEdit() {
       const id = this.imagery._id

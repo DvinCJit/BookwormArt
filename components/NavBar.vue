@@ -6,10 +6,39 @@
         <v-toolbar-title id="toolbar-title" v-text="title" />
       </nuxt-link>
       <v-spacer></v-spacer>
-      <v-btn @click="toggleTheme">Theme</v-btn>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <div v-if="$vuetify.breakpoint.mdAndUp && loggedIn && this.$store.state.users.user._id">
+        <nuxt-link to="/">
+          <v-icon class="mr-3">mdi-home</v-icon>
+        </nuxt-link>
+        <nuxt-link to="/users/imageries/create">
+          <v-icon class="mr-3">mdi-plus-circle</v-icon>
+        </nuxt-link>
+        <nuxt-link to="/users/:id">
+          <v-icon class="mr-3">mdi-account-circle</v-icon>
+        </nuxt-link>
+      </div>
+      <div v-if="$vuetify.breakpoint.mdAndUp && loggedIn && !this.$store.state.users.user._id">
+        <nuxt-link>
+          <v-btn color="#069688" class="black--text">Login</v-btn>
+        </nuxt-link>
+        <nuxt-link to="/register">
+          <v-btn color="#069688" class="black--text">Register</v-btn>
+        </nuxt-link>
+      </div>
+      <div v-if="$vuetify.breakpoint.mdAndUp && !loggedIn">
+        <nuxt-link to="/login">
+          <v-btn color="#069688" class="black--text">Login</v-btn>
+        </nuxt-link>
+        <nuxt-link to="/register">
+          <v-btn  color="#069688" class="black--text">Register</v-btn>
+        </nuxt-link>
+      </div>
+      <v-btn v-if="$vuetify.breakpoint.mdAndUp && loggedIn && this.$store.state.users.user._id" color="#069688" class="black--text" @click="logout">Logout</v-btn>
+      <v-btn class="ml-1" @click="toggleTheme">Theme</v-btn>
+      <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer" />
     </v-app-bar>
     <v-navigation-drawer
+      v-if="$vuetify.breakpoint.smAndDown"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -33,7 +62,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-list v-else-if="loggedIn && !!this.$store.state.users.user._id">
+      <v-list v-else-if="loggedIn && !this.$store.state.users.user._id">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -147,6 +176,6 @@ export default {
   color: $title-color
   padding-right: 0.3em
 
-#home-link
+#home-link, a
   text-decoration: none
 </style>

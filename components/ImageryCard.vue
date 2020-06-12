@@ -9,7 +9,8 @@
     <a :href="imagery.image.url"><img :src="imagery.image.url" width="100%" /></a>
     <v-card-text>
       <hr class="my-3" />
-      <p>{{ imagery.fragment }}</p>
+      <p v-if="this.$vuetify.theme.dark" class="text-justify">{{ imagery.fragment }}</p>
+      <p v-else class="grey--text text--darken-4 text-justify">{{ imagery.fragment }}</p>
       <div v-if="loggedIn">
         <span :likes="likes" style="float: left" class="mr-1">{{
           likes

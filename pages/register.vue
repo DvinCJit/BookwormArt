@@ -11,6 +11,7 @@
           id="nickname"
           v-model="nickname"
           label="Nickname"
+          autocomplete="username"
           :rules="nameRules"
           required
         >
@@ -19,6 +20,7 @@
           id="email"
           v-model="email"
           label="Email"
+          autocomplete="username"
           :rules="emailRules"
           required
         ></v-text-field>
@@ -26,6 +28,7 @@
           id="password"
           v-model="password"
           label="Password"
+          autocomplete="new-password"
           :type="show ? 'text' : 'password'"
           :rules="passwordRules"
           required

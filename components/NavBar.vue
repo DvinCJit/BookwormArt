@@ -6,34 +6,26 @@
         <v-toolbar-title id="toolbar-title" v-text="title" />
       </nuxt-link>
       <v-spacer></v-spacer>
-      <div v-if="$vuetify.breakpoint.mdAndUp && loggedIn && this.$store.state.users.user._id">
-        <nuxt-link to="/">
-          <v-icon class="mr-3">mdi-home</v-icon>
-        </nuxt-link>
-        <nuxt-link to="/users/imageries/create">
-          <v-icon class="mr-3">mdi-plus-circle</v-icon>
-        </nuxt-link>
-        <nuxt-link to="/users/:id">
-          <v-icon class="mr-3">mdi-account-circle</v-icon>
-        </nuxt-link>
+      <div v-show="$vuetify.breakpoint.mdAndUp && loggedIn && this.$store.state.users.user._id">
+        <v-btn class="mr-1" icon to="/">
+          <v-icon>mdi-home</v-icon>
+        </v-btn>
+        <v-btn class="mr-1" icon to="/users/imageries/create">
+          <v-icon>mdi-plus-circle</v-icon>
+        </v-btn>
+        <v-btn class="mr-1" icon to="/users/:id">
+          <v-icon>mdi-account-circle</v-icon>
+        </v-btn>
+        <v-btn color="#069688" class="black--text" @click="logout">Logout</v-btn>
       </div>
-      <div v-if="$vuetify.breakpoint.mdAndUp && loggedIn && !this.$store.state.users.user._id">
-        <nuxt-link>
-          <v-btn color="#069688" class="black--text">Login</v-btn>
-        </nuxt-link>
-        <nuxt-link to="/register">
-          <v-btn color="#069688" class="black--text">Register</v-btn>
-        </nuxt-link>
+      <div v-show="$vuetify.breakpoint.mdAndUp && loggedIn && !this.$store.state.users.user._id">
+        <v-btn to="/login" color="#069688" class="black--text">Login</v-btn>
+        <v-btn to="/register" color="#069688" class="black--text">Register</v-btn>
       </div>
-      <div v-if="$vuetify.breakpoint.mdAndUp && !loggedIn">
-        <nuxt-link to="/login">
-          <v-btn color="#069688" class="black--text">Login</v-btn>
-        </nuxt-link>
-        <nuxt-link to="/register">
-          <v-btn  color="#069688" class="black--text">Register</v-btn>
-        </nuxt-link>
+      <div v-show="$vuetify.breakpoint.mdAndUp && !loggedIn">
+        <v-btn to="/login" color="#069688" class="black--text">Login</v-btn>  
+        <v-btn to="/register" color="#069688" class="black--text">Register</v-btn>
       </div>
-      <v-btn v-if="$vuetify.breakpoint.mdAndUp && loggedIn && this.$store.state.users.user._id" color="#069688" class="black--text" @click="logout">Logout</v-btn>
       <v-btn class="ml-1" @click="toggleTheme">Theme</v-btn>
       <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer" />
     </v-app-bar>

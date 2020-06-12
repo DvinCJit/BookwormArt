@@ -101,37 +101,43 @@ module.exports.create = [
   }
 ]
 
-module.exports.update = async (req, res) => {
-  const id = req.params.id
-  // eslint-disable-next-line no-console
-  // console.log('Image file: ', req.file)
-  await Imagery.findById(id)
-    .then((imagery) => {
-      // if (req.file.public_id) {
-      //   cloudinary.v2.uploader.destroy(imagery.image.id, (error, result) => {
-      //     if (error) return error
-      //     res.json(result)
-      //   })
-      // }
+module.exports.update = [
+  check('book', 'Book title is required.').isLength({ min: 2 }),
+  check('author', 'Book author is required.').isLength({ min: 2 }),
+  check('fragment', 'Book fragment is required.').isLength({ min: 2 }),
+  check('image', 'Imagery is required.'),
+  async (req, res) => {
+    const id = req.params.id
+    // eslint-disable-next-line no-console
+    // console.log('Image file: ', req.file)
+    await Imagery.findById(id)
+      .then((imagery) => {
+        // if (req.file.public_id) {
+        //   cloudinary.v2.uploader.destroy(imagery.image.id, (error, result) => {
+        //     if (error) return error
+        //     res.json(result)
+        //   })
+        // }
 
-      // const image = {}
-      // image.url = req.file.url
-      // image.id = req.file.public_id
+        // const image = {}
+        // image.url = req.file.url
+        // image.id = req.file.public_id
 
-      imagery.book = req.body.book
-      imagery.author = req.body.author
-      imagery.chapter = req.body.chapter
-      imagery.fragment = req.body.fragment
-      imagery.url = req.body.url
-      // imagery.image = image
+        imagery.book = req.body.book
+        imagery.author = req.body.author
+        imagery.chapter = req.body.chapter
+        imagery.fragment = req.body.fragment
+        imagery.url = req.body.url
+        // imagery.image = image
 
-      imagery
-        .save()
-        .then(() => res.json('Imagery updated!'))
-        .catch((err) => res.status(400).json('Error: ' + err))
-    })
-    .catch((err) => res.status(400).json('Error ' + err))
-}
+        imagery
+          .save()
+          .then(() => res.json('Imagery updated!'))
+          .catch((err) => res.status(400).json('Error: ' + err))
+      })
+      .catch((err) => res.status(400).json('Error ' + err))
+  }
+]
 
 module.exports.delete = async (req, res) => {
   const _imagery = req.body._id

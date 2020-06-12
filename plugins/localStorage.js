@@ -13,6 +13,6 @@ export default ({ store, isHMR }) => {
     })(store)
 
     ImageryService.interceptError()
-    ImageryService.persistToken()
+    // ImageryService.persistToken()
   })
 }

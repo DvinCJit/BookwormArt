@@ -139,7 +139,7 @@ export default {
       ImageryService.addImagery(formData)
         .then((response) => {
           if (response.status === 200) {
-            this.$router.push('/')
+            location.reload()
           }
         })
         .catch((err) => {

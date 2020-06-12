@@ -12,7 +12,7 @@
             v-for="(imagery, index) in imageries"
             :key="index"
             cols="12"
-            md="6"
+            md="4"
           >
             <ImageryCard
               :heart.sync="heart"

@@ -30,7 +30,10 @@ export default {
   },
   // Persist token after page reload
   persistToken() {
-    if (JSON.parse(localStorage.getItem('user')).users.user !== null) {
+    if (
+      JSON.parse(localStorage.getItem('user')) !== null &&
+      JSON.parse(localStorage.getItem('user')).users.user !== null
+    ) {
       return (apiClient.defaults.headers.common.Authorization = `Bearer ${
         JSON.parse(localStorage.getItem('user')).users.user.token
       }`)

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const uri = process.env.ATLAS_URI
 
 require('dotenv').config()
-mongoose.set('debug', true)
+// mongoose.set('debug', true)
 mongoose.connect(uri, {
   // To fix all deprecation warnings:
   useNewUrlParser: true,

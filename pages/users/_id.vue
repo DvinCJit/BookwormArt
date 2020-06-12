@@ -12,7 +12,7 @@
             v-for="(imagery, index) in userImageries"
             :key="index"
             cols="12"
-            md="6"
+            md="4"
           >
             <ImageryCard :imagery="imagery" :index="index" />
           </v-col>

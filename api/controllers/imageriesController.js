@@ -93,6 +93,7 @@ module.exports.update = [
 
     // Initialize imagery
     const id = req.params.id
+
     await Imagery.findById(id)
       .then((imagery) => {
         imagery.book = req.body.book

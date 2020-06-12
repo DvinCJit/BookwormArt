@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+// eslint-disable-next-line no-unused-vars
+const db = require('./db')
 
 app.use(cors())
 // Initialize body-parser options (built-in with express)

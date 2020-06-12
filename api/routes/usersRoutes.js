@@ -9,7 +9,4 @@ router.post('/register', usersController.register)
 // Login
 router.post('/login', usersController.login)
 
-// Get all user imageries
-// router.get('/users/:id', usersController.getUserImageries)
-
 module.exports = router

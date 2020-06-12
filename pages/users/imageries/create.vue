@@ -126,13 +126,6 @@ export default {
       formValidity: false
     }
   },
-  // created() {
-  //   const userString = localStorage.getItem('user')
-  //   if (userString) {
-  //     const userData = JSON.parse(userString)
-  //     this.$store.commit('SET_USER_DATA', userData)
-  //   }
-  // },
   methods: {
     submitImagery() {
       const formData = new FormData()
@@ -142,13 +135,9 @@ export default {
       formData.append('fragment', this.fragment)
       formData.append('url', this.url)
       formData.append('image', this.image)
-      // eslint-disable-next-line no-console
-      // console.log(formData)
+
       ImageryService.addImagery(formData)
         .then((response) => {
-          // eslint-disable-next-line no-console
-          // console.log(response)
-          // eslint-disable-next-line no-console
           if (response.status === 200) {
             this.$router.push('/')
           }

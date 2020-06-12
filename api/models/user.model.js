@@ -6,16 +6,7 @@ const userSchema = new Schema({
   nickname: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  token: {
-    type: String,
-    required: true
-  }
-  // imageries: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Imagery'
-  //   }
-  // ]
+  token: { type: String, required: true }
 })
 
 // Hash password before saving user

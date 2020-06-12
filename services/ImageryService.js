@@ -10,16 +10,12 @@ const apiClient = axios.create({
 })
 
 export default {
+  // Logout user if not authenticated
   interceptError() {
     return apiClient.interceptors.response.use(
       (response) => response,
       (error) => {
-        // eslint-disable-next-line no-console
-        console.log('axios error: ', error)
         if (error.response.status === 401) {
-          // eslint-disable-next-line no-console
-          console.log('axios error: ', error)
-          // this.$store.dispatch('users/logout')
           localStorage.clear()
           location.reload()
         }
@@ -32,6 +28,7 @@ export default {
       JSON.parse(localStorage.getItem('user')).token
     }`)
   },
+  // Persist token after page reload
   persistToken() {
     if (JSON.parse(localStorage.getItem('user')).users.user !== null) {
       return (apiClient.defaults.headers.common.Authorization = `Bearer ${
@@ -50,9 +47,6 @@ export default {
   },
   getMyImageries(id) {
     return apiClient.get('/api/users/' + id)
-  },
-  getImagery(id) {
-    return apiClient.get('/api/users/imageries/' + id)
   },
   addImagery(data) {
     return apiClient.post('/api/users/imageries/create', data)

@@ -8,8 +8,6 @@ export const mutations = {
   SET_USER_DATA(state, userData) {
     state.user = userData
     localStorage.setItem('user', JSON.stringify(userData))
-    // eslint-disable-next-line dot-notation
-    // axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`
     ImageryService.getToken()
   },
   CLEAR_USER_DATA(state) {
@@ -22,13 +20,11 @@ export const mutations = {
 export const actions = {
   register({ commit }, credentials) {
     return ImageryService.addUser(credentials).then(({ data }) => {
-      // console.log('User data is: ', data)
       commit('SET_USER_DATA', data)
     })
   },
   login({ commit }, credentials) {
     return ImageryService.loginUser(credentials).then(({ data }) => {
-      // console.log('User data is: ', data)
       commit('SET_USER_DATA', data)
     })
   },

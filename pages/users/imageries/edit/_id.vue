@@ -153,13 +153,9 @@ export default {
         fragment: this.fragment,
         url: this.url
       }
-      // eslint-disable-next-line no-console
-      // console.log('Client data', data)
+
       ImageryService.updateImagery({ id, data })
         .then((response) => {
-          // eslint-disable-next-line no-console
-          // console.log(response)
-          // eslint-disable-next-line no-console
           if (response.status === 200) {
             this.$router.push('/')
           }

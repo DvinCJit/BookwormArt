@@ -13,6 +13,7 @@
             :key="index"
             cols="12"
             md="4"
+            sm="6"
           >
             <ImageryCard :imagery="imagery" :index="index" />
           </v-col>

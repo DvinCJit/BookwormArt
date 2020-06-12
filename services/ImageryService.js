@@ -51,6 +51,9 @@ export default {
   getMyImageries(id) {
     return apiClient.get('/api/users/' + id)
   },
+  getImagery(id) {
+    return apiClient.get('/api/users/imageries/' + id)
+  },
   addImagery(data) {
     return apiClient.post('/api/users/imageries/create', data)
   },

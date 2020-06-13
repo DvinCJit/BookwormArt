@@ -27,10 +27,10 @@
         <v-btn to="/register" color="#069688" class="black--text">Register</v-btn>
       </div>
       <v-btn class="ml-1" @click="toggleTheme">Theme</v-btn>
-      <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon v-show="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer" />
     </v-app-bar>
     <v-navigation-drawer
-      v-if="$vuetify.breakpoint.smAndDown"
+      v-show="$vuetify.breakpoint.smAndDown"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"

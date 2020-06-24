@@ -9,7 +9,7 @@ Personal project developed with MEVN stack, specifically Mongoose (and MongoDB A
 ## Preview
 
 ![BookwormArt Preview](https://res.cloudinary.com/drdwtcsc4/image/upload/v1592061923/Others/2020-06-13_17-23-58_hxlk9e.gif "BookwormArt Preview")
-![BookwormArt Preview - CRUD](https://res.cloudinary.com/drdwtcsc4/image/upload/v1593008798/Others/2020-06-24_15-46-18_iljcst.gif "BookwormArt Preview - CRUD")
+![BookwormArt CRUD](https://res.cloudinary.com/drdwtcsc4/image/upload/v1593008798/Others/2020-06-24_15-46-18_iljcst.gif "BookwormArt CRUD")
 Website Deployed with Heroku.
 
 ## Build Setup

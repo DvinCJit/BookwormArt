@@ -18,6 +18,18 @@
         <p v-else>likes</p>
       </div>
     </v-card-text>
+    <v-card-actions>
+      <v-icon
+        color="#069688"
+        class="mr-4"
+        :disabled="disabled"
+        @mouseup.prevent="pushLogin"
+        @click.prevent="disable"
+      >
+        {{ heartOutline }}
+      </v-icon>
+    </v-card-actions>
+    
     <v-card-actions v-if="loggedIn">
       <v-icon
         color="#069688"
@@ -152,6 +164,9 @@ export default {
         .catch((err) => {
           return err
         })
+    },
+    pushLogin() {
+      this.$router.push('/register')
     }
   }
 }

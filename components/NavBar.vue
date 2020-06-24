@@ -19,11 +19,11 @@
         <v-btn color="#069688" class="black--text" @click="logout">Logout</v-btn>
       </div>
       <div v-show="$vuetify.breakpoint.mdAndUp && loggedIn && !this.$store.state.users.user._id">
-        <v-btn to="/login" color="#069688" class="black--text">Login</v-btn>
+        <v-btn to="/login" color="#069688" class="black--text">Log in</v-btn>
         <v-btn to="/register" color="#069688" class="black--text">Register</v-btn>
       </div>
       <div v-show="$vuetify.breakpoint.mdAndUp && !loggedIn">
-        <v-btn to="/login" color="#069688" class="black--text">Login</v-btn>  
+        <v-btn to="/login" color="#069688" class="black--text">Log in</v-btn>  
         <v-btn to="/register" color="#069688" class="black--text">Register</v-btn>
       </div>
       <v-btn class="ml-1" @click="toggleTheme">Theme</v-btn>
@@ -109,7 +109,7 @@ export default {
       items: [
         {
           icon: 'mdi-login',
-          title: 'Login',
+          title: 'Log in',
           to: '/login'
         },
         {

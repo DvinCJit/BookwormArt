@@ -42,7 +42,7 @@
           >Register</v-btn
         >
       </v-form>
-      <p class="mt-4">Already a member? <a href="/register">Login.</a></p>
+      <p class="mt-4">Already a member? <a href="/register">Log in.</a></p>
       <ul>
         <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
       </ul>

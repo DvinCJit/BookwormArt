@@ -18,7 +18,7 @@
         <p v-else>likes</p>
       </div>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="!loggedIn">
       <v-icon
         color="#069688"
         class="mr-4"

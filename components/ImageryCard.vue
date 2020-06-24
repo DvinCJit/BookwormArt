@@ -10,7 +10,7 @@
       <hr class="my-3" />
       <p v-if="this.$vuetify.theme.dark" class="text-justify">{{ imagery.fragment }}</p>
       <p v-else class="grey--text text--darken-4 text-justify">{{ imagery.fragment }}</p>
-      <div v-if="loggedIn">
+      <div>
         <span :likes="likes" style="float: left" class="mr-1">{{
           likes
         }}</span>
@@ -74,16 +74,16 @@ export default {
   },
   // Works before nuxt is loaded
   mounted() {
+    this.countLikes()
     if (this.loggedIn) {
       this.getLikes()
-      this.countLikes()
     }
   },
   // Works when DOM is ready - when navigating through pages
   updated() {
+    this.countLikes()
     if (this.loggedIn) {
       this.getLikes()
-      this.countLikes()
     }
   },
   methods: {

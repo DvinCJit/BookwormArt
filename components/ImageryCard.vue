@@ -5,7 +5,9 @@
       {{ imagery.book }} by {{ imagery.author }}
     </v-card-title>
     <v-card-subtitle>{{ imagery.chapter }}</v-card-subtitle>
-    <a :href="imagery.image.url"><img :src="imagery.image.url" width="100%" /></a>
+    <div style="height: 330px;overflow: hidden;position: relative;">
+      <a :href="imagery.image.url"><img :src="imagery.image.url" width="100%" style="display: grid;margin: auto;position: absolute;top: 50%; transform: translate(0, -50%);" /></a>
+    </div>
     <v-card-text>
       <hr class="my-3" />
       <p v-if="this.$vuetify.theme.dark" class="text-justify">{{ imagery.fragment }}</p>

@@ -1,6 +1,15 @@
-# bookworm-art-project
+# BookwormArt
 
-> Literary Imagery Drawings
+> Literature Inspired Art Community - Visit it at [BookwormArt](https://bookwormart.herokuapp.com/).
+
+## Description
+
+Personal project developed with MEVN stack, specifically Mongoose (and MongoDB Atlas), Express.js (Node.js) and Nuxt (Vue.js framework for universal app). Cloudinary was used to store the images and for the frontend responsive and overall design the main framework used was Vuetify, appart from some SASS when necessary. Finally, JWT (JSON Web Tokens) were implemented for the authentication and authorization part.
+
+## Preview
+
+![BookwormArt Preview](https://res.cloudinary.com/drdwtcsc4/image/upload/v1592061923/Others/2020-06-13_17-23-58_hxlk9e.gif "BookwormArt Preview")
+Website Deployed with Heroku.
 
 ## Build Setup
 
